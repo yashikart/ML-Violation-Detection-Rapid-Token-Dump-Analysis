@@ -98,13 +98,6 @@ Example ML Prediction:
     "recommended_action": "freeze"
 }
 
-Next Steps for Improvement:
----------------------------
-- Add more features (e.g., average severity, reason types, time gaps).
-- Collect real labeled data or feedback for training.
-- Use more sophisticated ML models (XGBoost, LSTM, GNN).
-- Deploy real-time detection using Kafka, WebSockets, or APIs.
-
 Summary:
 --------
 Start simple with rule-based logic for fast suspicious wallet detection.
