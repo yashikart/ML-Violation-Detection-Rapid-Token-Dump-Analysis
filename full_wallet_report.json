@@ -1,0 +1,90 @@
+[
+    {
+        "address": "0x123",
+        "flagged": false,
+        "reason": "Only 1 high severity reports (need 3+)",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0x1234",
+        "flagged": false,
+        "reason": "All Created At timestamps are missing or invalid",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0x789xyz",
+        "flagged": false,
+        "reason": "Only 0 high severity reports (need 3+)",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xAb5801a7D398351b8bE11C439e05C5b3259aeC9B",
+        "flagged": false,
+        "reason": "Only 0 high severity reports (need 3+)",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xabc001",
+        "flagged": false,
+        "reason": "All Created At timestamps are missing or invalid",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xabc002",
+        "flagged": false,
+        "reason": "All Created At timestamps are missing or invalid",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xabc003",
+        "flagged": false,
+        "reason": "All Created At timestamps are missing or invalid",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xabc123",
+        "flagged": true,
+        "reason": "Rapid token dump detected",
+        "violation": "Rapid token dump",
+        "score": 1.0,
+        "recommended_action": "freeze"
+    },
+    {
+        "address": "0xalert001",
+        "flagged": false,
+        "reason": "All Created At timestamps are missing or invalid",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    },
+    {
+        "address": "0xdef456",
+        "flagged": true,
+        "reason": "Rapid token dump detected",
+        "violation": "Rapid token dump",
+        "score": 0.9,
+        "recommended_action": "freeze"
+    },
+    {
+        "address": "0xtestwallet",
+        "flagged": false,
+        "reason": "Only 0 high severity reports (need 3+)",
+        "violation": null,
+        "score": null,
+        "recommended_action": null
+    }
+]

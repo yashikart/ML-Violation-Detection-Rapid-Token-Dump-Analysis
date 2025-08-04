@@ -1,0 +1,14 @@
+[
+    {
+        "address": "0xabc123",
+        "violation": "Rapid token dump",
+        "score": 1.0,
+        "recommended_action": "freeze"
+    },
+    {
+        "address": "0xdef456",
+        "violation": "Rapid token dump",
+        "score": 0.9,
+        "recommended_action": "freeze"
+    }
+]
