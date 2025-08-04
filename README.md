@@ -1,63 +1,117 @@
-# Wallet Violation Detection
+Wallet Violation Detection System
+================================
 
-## Overview
+Overview:
+---------
+This project detects suspicious blockchain wallets based on analysis of report data.
+It uses both rule-based methods and machine learning (ML) to find wallets involved in rapid token dumps or other suspicious activities.
 
-This project analyzes wallet reports to detect suspicious activities like rapid token dumps.  
-It starts with simple rule-based detection and then uses machine learning (ML) for smarter predictions.
+How It Works:
+-------------
+
+1. Rule-Based Detection:
+   - Loads 'reports.csv' with columns: Wallet, Severity, Reason, Created At.
+   - Groups data by wallet.
+   - Flags wallets with 3 or more high-severity (Severity >= 4) reports within 1 hour.
+   - Outputs JSON with address, violation type, score (0.75-1.0), and recommended action ('freeze').
+
+2. Full Wallet Report:
+   - Covers all wallets, even those with missing or invalid timestamps.
+   - For unflagged wallets, provides clear reasons why.
+   - Outputs detailed JSON report for every wallet.
+
+3. Real-Time Detection (Simulated):
+   - Processes incoming reports in streaming fashion.
+   - Maintains a sliding time window (1 hour) per wallet.
+   - Flags wallets immediately when rapid token dump pattern detected.
+   - Prints alerts with violation info.
+
+4. Machine Learning Detection:
+   - Extracts features per wallet:
+       * Total reports count
+       * Count of high-severity reports
+       * Average severity
+       * Number of distinct reasons
+       * Average time gap between high-severity events
+   - Trains Random Forest classifier on synthetic labels.
+   - Predicts violation probability.
+   - Flags wallets for freeze if probability > 0.7; otherwise monitor.
+   - Shows feature importance for explainability.
+
+How To Run:
+-----------
+- Place your 'reports.csv' in the project folder.
+- Run rule-based scripts for quick flagging.
+- Run full report script for detailed audit info.
+- Run real-time detection simulation for streaming scenarios.
+- Run ML scripts for data-driven prediction.
+
+Outputs:
+--------
+- ml_violations.json: flagged wallets by rule-based method
+- full_wallet_report.json: detailed report for every wallet with reasons
+- ml_predictions.json: ML predicted probabilities and recommendations
+
+Example Output (Rule-Based):
+----------------------------
+[
+    {
+        "address": "0xabc123",
+        "violation": "Rapid token dump",
+        "score": 1.0,
+        "recommended_action": "freeze"
+    },
+    {
+        "address": "0xdef456",
+        "violation": "Rapid token dump",
+        "score": 0.9,
+        "recommended_action": "freeze"
+    }
+]
+
+Example Output (Full Report):
+-----------------------------
+{
+    "address": "0x123",
+    "flagged": false,
+    "reason": "Only 1 high severity reports (need 3+)",
+    "violation": null,
+    "score": null,
+    "recommended_action": null
+}
+
+Example Real-Time Alert:
+------------------------
+ALERT: {
+    "address": "0xabc123",
+    "violation": "Rapid token dump",
+    "score": 0.75,
+    "recommended_action": "freeze"
+}
+
+Example ML Prediction:
+----------------------
+{
+    "address": "0xabc123",
+    "violation_probability": 0.84,
+    "violation": "Rapid token dump",
+    "recommended_action": "freeze"
+}
+
+Next Steps for Improvement:
+---------------------------
+- Add more features (e.g., average severity, reason types, time gaps).
+- Collect real labeled data or feedback for training.
+- Use more sophisticated ML models (XGBoost, LSTM, GNN).
+- Deploy real-time detection using Kafka, WebSockets, or APIs.
+
+Summary:
+--------
+Start simple with rule-based logic for fast suspicious wallet detection.
+Add machine learning for smarter, probabilistic identification.
+Continuously improve data, features, and models for better security monitoring.
+
+
 
 ---
 
-## How It Works
-
-### Rule-Based Detection (Basic)
-
-- Reads a CSV file `reports.csv` containing wallet reports with columns like wallet address, severity, reason, and creation timestamp.
-- Groups the reports by wallet.
-- Flags any wallet that has **3 or more high-severity (severity ≥ 4) reports within 1 hour** as suspicious.
-- Flags with "Rapid token dump" violation and recommends freezing the wallet.
-- Outputs a JSON list of flagged wallets.
-
-### Detailed Reporting (Enhanced)
-
-- Includes wallets even if all timestamps are missing or invalid.
-- For each wallet, provides detailed reason if it is not flagged.
-- Outputs a full JSON report covering all wallets — flagged or not — with explanations.
-
----
-
-## Machine Learning Enhancement
-
-To improve accuracy and handle more complex patterns, a machine learning model is used:
-
-- Extracts features per wallet such as:
-  - Total number of reports
-  - Number of high-severity reports
-  - Average severity score
-  - Number of distinct reasons reported
-  - Average time gap between high-severity reports
-- Trains a Random Forest classifier to predict if a wallet should be flagged.
-- Outputs probabilities for violation:
-  - If probability > 0.7, recommends freezing.
-  - Otherwise, marks for monitoring.
-- Shows feature importance to understand key factors.
-
----
-
-## How to Run
-
-1. Place your `reports.csv` file in the project folder.
-2. Run the rule-based script for quick flagging results.
-3. Run the ML script to train and predict using the machine learning model.
-4. Review generated JSON reports for flagged wallets and detailed reasons.
-
----
-
-## Summary
-
-- Start with simple rule-based logic to quickly catch obvious suspicious wallets.
-- Use machine learning for flexible, data-driven, and probabilistic detection.
-- Continuously improve the system with more data, better features, and smarter models.
-
----
-
-*This README explains the core logic, outputs, and how machine learning enhances the detection process.*
